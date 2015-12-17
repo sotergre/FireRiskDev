@@ -1,0 +1,18 @@
+#
+# Makefile for convertKx10toC.c 
+#
+
+EXEDIR=/firecast/BIN/
+CC = gcc
+CFLAGS = -g -ansi -pedantic
+OBJS = include/allocate_binary.o\
+       include/read_binary.o\
+       include/write_binary.o\
+       	convertKx10toC.o
+
+convertKx10toC: ${OBJS}
+	${CC} ${CFLAGS} -o $@ ${OBJS} -lm
+	mv $@ $(EXEDIR)
+
+clean:
+	/bin/rm -f ${EXEC} convertKx10toC.o

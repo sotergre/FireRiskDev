@@ -1,0 +1,18 @@
+#
+# Makefile for interpolate_RH_temporal_nas_16day.c 
+#
+
+EXEDIR=${HOME}/BIN/
+CC = gcc
+CFLAGS = -g -ansi -pedantic
+OBJS = include/allocate_binary.o\
+       include/read_binary.o\
+       include/write_binary.o\
+       interpolate_RH_temporal_nas_16day.o
+
+interpolate_RH_temporal_nas_16day: ${OBJS}
+	${CC} ${CFLAGS} -o $@ ${OBJS} -lm
+	mv $@ $(EXEDIR)
+
+clean:
+	/bin/rm -f ${EXEC} interpolate_RH_temporal_nas_16day.o

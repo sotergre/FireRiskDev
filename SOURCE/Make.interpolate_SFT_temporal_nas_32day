@@ -1,0 +1,18 @@
+#
+# Makefile for interpolate_SFT_temporal_nas_32day.c 
+#
+
+EXEDIR=${HOME}/BIN/
+CC = gcc
+CFLAGS = -g -ansi -pedantic
+OBJS = include/allocate_binary.o\
+       include/read_binary.o\
+       include/write_binary.o\
+       interpolate_SFT_temporal_nas_32day.o
+
+interpolate_SFT_temporal_nas_32day: ${OBJS}
+	${CC} ${CFLAGS} -o $@ ${OBJS} -lm
+	mv $@ $(EXEDIR)
+
+clean:
+	/bin/rm -f ${EXEC} interpolate_SFT_temporal_nas_32day.o

@@ -1,0 +1,18 @@
+# Makefile for  dursum_3B42PP_AMZEX_win2_gdal.c
+#
+
+EXEDIR=~/FIRECAST/BIN/
+CC = gcc
+CFLAGS = -g -ansi -pedantic
+OBJS = 	include/allocate_binary.o\
+	include/read_binary.o\
+	include/write_binary.o\
+       		  dursum_3B42PP_AMZEX_win2_gdal.o
+
+dursum_3B42PP_AMZEX_win2_gdal: ${OBJS} 
+	${CC} ${CFLAGS} -o $@ ${OBJS} -lm
+	mv $@ $(EXEDIR)
+
+
+clean:
+	/bin/rm -f ${EXEC} dursum_3B42PP_AMZEX_win2.o

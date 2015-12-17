@@ -1,0 +1,19 @@
+#
+# Makefile for fmodel_10hr_nas_v2.c 
+#
+
+
+EXEDIR=${HOME}/BIN/
+CC = gcc
+CFLAGS = -g -ansi -pedantic
+OBJS = include/allocate_binary.o\
+       include/read_binary_fmodel.o\
+       include/write_binary.o\
+       	fmodel_10hr_nas_v2.o
+
+fmodel_10hr_nas_v2: ${OBJS}
+	${CC} ${CFLAGS} -o $@ ${OBJS} -lm
+	mv $@ $(EXEDIR)
+
+clean:
+	/bin/rm -f ${EXEC} fmodel_10hr_nas_v2.o

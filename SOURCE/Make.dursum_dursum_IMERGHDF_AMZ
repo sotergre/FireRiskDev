@@ -1,0 +1,18 @@
+# Makefile for dursum_IMERGHDF_AMZ.c
+#
+
+EXEDIR=/firecast/BIN/
+CC = gcc
+CFLAGS = -g -ansi -pedantic
+OBJS = 	include/allocate_binary.o\
+	include/read_binary.o\
+	include/write_binary.o\
+       		  dursum_IMERGHDF_AMZ.o
+
+dursum_IMERGHDF_AMZ: ${OBJS} 
+	${CC} ${CFLAGS} -o $@ ${OBJS} -lm
+	mv $@ $(EXEDIR)
+
+
+clean:
+	/bin/rm -f ${EXEC} dursum_IMERGHDF_AMZ.o

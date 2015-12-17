@@ -1,0 +1,18 @@
+#
+# Makefile for firerisk_index.c 
+#
+
+EXEDIR=/firecast/BIN/
+CC = gcc
+CFLAGS = -g -ansi -pedantic
+OBJS = include/allocate_binary.o\
+       include/read_binary.o\
+       include/write_binary.o\
+       	firerisk_index.o
+
+firerisk_index: ${OBJS}
+	${CC} ${CFLAGS} -o $@ ${OBJS} -lm
+	mv $@ $(EXEDIR)
+
+clean:
+	/bin/rm -f ${EXEC} firerisk_index.o

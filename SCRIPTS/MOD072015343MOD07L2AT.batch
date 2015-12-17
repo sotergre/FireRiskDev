@@ -1,0 +1,11 @@
+verbose
+clear_data
+
+set_input_directory    /firecast/DATA/AMZEX/MOD07L2/2015/
+set_output_directory    /firecast/DATA/AMZEX/MODOUT/TP_PROFILE/2015/
+
+set_projection_to_geometry   ProjectionTo="Sinusoidal" CenterLatitudeTo=0.0 CenterLongitudeTo=-68.0 WidthTo=622 HeightTo=911 PixelSizeXTo=5000 PixelSizeYTo=5000 LatitudeMinTo=-28.0 LatitudeMaxTo=13.0 LongitudeMinTo=-82.0 LongitudeMaxTo=-54.0 
+set_input_hdf_file         /firecast/DATA/AMZEX/MOD07L2/2015/MOD07_L2.A2015343*
+select_SDS                 SDSName= "Retrieved_Temperature_Profile" Index=20
+set_misc_options OnlyDay=Yes
+create_MODIS_SDS_MOSAIC    FileName="AT_MOD07_2015343_Day_AMZEX.bin" ClearFile=Yes scaling="y=a(x-b)" Index=20

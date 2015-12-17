@@ -1,0 +1,18 @@
+#
+# Makefile for rescale_dslr_nas_idn.c 
+#
+
+EXEDIR=/firecast/BIN/
+CC = gcc
+CFLAGS = -g -ansi -pedantic
+OBJS = include/allocate_binary.o\
+       include/read_binary.o\
+       include/write_binary.o\
+       	rescale_dslr_nas_idn.o
+
+rescale_dslr_nas_idn: ${OBJS}
+	${CC} ${CFLAGS} -o $@ ${OBJS} -lm
+	mv $@ $(EXEDIR)
+
+clean:
+	/bin/rm -f ${EXEC} rescale_dslr_nas_idn.o

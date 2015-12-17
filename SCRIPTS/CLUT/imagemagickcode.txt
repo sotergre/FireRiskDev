@@ -1,0 +1,27 @@
+SUM PPT
+convert xc:azure xc:cyan xc:DeepSkyBlue xc:blue xc:purple \
+	+append -filter Cubic -resize 255x30\! \
+	-draw 'fill DarkSlateGray rectangle 0,0 1,30' \
+	gradient_sumppt.png
+
+GRADIENT ALL
+convert xc:red xc:yellow xc:limeGreen xc:cyan xc:blue \
+	+append -filter Cubic -resize 255x30\! \
+	-draw 'fill white rectangle 0,0 1,30' \
+	gradient_all.png
+
+GRADIENT PAPER for 2003
+convert xc:magenta xc:red xc:yellow xc:limeGreen xc:cyan xc:blue \
+	+append -filter Cubic -resize 255x30\! \
+	-draw 'fill white rectangle 0,0 1,30' \
+	gradient_paper.png
+
+GRADIENT LST
+convert xc:blue xc:cyan xc:limeGreen xc:yellow xc:red \
+	+append -filter Cubic -resize 255x30\! \
+	gradient_lst.png
+
+GRADIENT DSLR
+convert xc:purple xc:cyan xc:yellow xc:red \
+	+append -filter Cubic -resize 255x30\! \
+	gradient_dslr.png

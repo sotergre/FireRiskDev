@@ -1,0 +1,19 @@
+#
+# Makefile for Keetch_Byram_SI.c
+#
+
+
+EXEDIR=/firecast/BIN/
+CC = gcc
+CFLAGS = -g -ansi -pedantic
+OBJS = include/allocate_binary.o\
+       include/read_binary.o\
+       include/write_binary.o\
+       	Keetch_Byram_SI.o
+
+Keetch_Byram_SI: ${OBJS}
+	${CC} ${CFLAGS} -o $@ ${OBJS} -lm
+	mv $@ $(EXEDIR)
+
+clean:
+	/bin/rm -f ${EXEC} Keetch_Byram_SI.o

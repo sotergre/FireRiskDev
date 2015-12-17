@@ -1,0 +1,18 @@
+#
+# Makefile for interpolate_SFT_temporal_nas.c 
+#
+
+EXEDIR=${HOME}/FIRECAST/BIN/
+CC = gcc
+CFLAGS = -g -ansi -pedantic
+OBJS = include/allocate_binary.o\
+       include/read_binary.o\
+       include/write_binary.o\
+       	interpolate_SFT_temporal_nas.o
+
+interpolate_SFT_temporal_nas: ${OBJS}
+	${CC} ${CFLAGS} -o $@ ${OBJS} -lm
+	mv $@ $(EXEDIR)
+
+clean:
+	/bin/rm -f ${EXEC} interpolate_SFT_temporal_nas.o

@@ -1,0 +1,22 @@
+#
+# Makefile for firerisk_index_gdal.c 
+#
+
+EXEDIR=/firecast/BIN/
+CC = gcc
+CFLAGS = -g -ansi -pedantic
+
+SRCGGDAL=/lib/gctpc/source/
+LIBGDAL=/firecast/lib/gdal//
+
+OBJS = include/allocate_binary.o\
+       include/read_binary.o\
+       include/write_binary.o\
+       	firerisk_index_gdal.o
+
+firerisk_index_gdal: ${OBJS}
+	${CC} ${CFLAGS} -o $@ ${OBJS} -lm
+	mv $@ $(EXEDIR)
+
+clean:
+	/bin/rm -f ${EXEC} firerisk_index_gdal.o

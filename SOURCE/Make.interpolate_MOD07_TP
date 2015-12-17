@@ -1,0 +1,18 @@
+#
+# Makefile for interpolate_MOD07_TP.c 
+#
+
+EXEDIR=/firecast/BIN/
+CC = gcc
+CFLAGS = -g -ansi -pedantic
+OBJS = include/allocate_binary.o\
+       include/read_binary.o\
+       include/write_binary.o\
+       interpolate_MOD07_TP.o
+
+interpolate_MOD07_TP: ${OBJS}
+	${CC} ${CFLAGS} -o $@ ${OBJS} -lm
+	mv $@ $(EXEDIR)
+
+clean:
+	/bin/rm -f ${EXEC} interpolate_MOD07_TP.o

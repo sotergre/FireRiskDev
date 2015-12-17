@@ -1,0 +1,16 @@
+When a MODIS download fails, you can reinitate the downlad and run that day's fire risk with:
+/FIRERISK/SCRIPTS/firerisk_init_manual.sh
+
+#### Shell Options #####
+#enterdatabase flag 
+#0=no records only BIN to image data base to avoid duplicating PNG entry
+#1=yes to record PNG and BIN outputs to image database /usr/local/bin/saveimagedb.pl
+enterdatabase=0
+year=2008
+beginjday=264
+endjday=265
+#prevyear is the year of the previous julian day which is the same year unless beginjday is 1.
+prevyear=2008
+prevjday=263
+
+

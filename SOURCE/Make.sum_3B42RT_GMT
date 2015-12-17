@@ -1,0 +1,20 @@
+#
+# Makefile for sum_3B42RT_GMT.c 
+#
+
+
+EXEDIR=/firecast/BIN/
+CC = gcc
+CFLAGS = -g -ansi -pedantic
+OBJS = include/allocate_binary.o\
+       include/read_binary_fmodel.o\
+       include/write_binary.o\
+	include/byteswap_3B42RT.o\
+       	sum_3B42RT_GMT.o
+
+sum_3B42RT_GMT: ${OBJS}
+	${CC} ${CFLAGS} -o $@ ${OBJS} -lm
+	mv $@ $(EXEDIR)
+
+clean:
+	/bin/rm -f ${EXEC} sum_3B42RT_GMT.o

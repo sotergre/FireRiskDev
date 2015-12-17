@@ -1,0 +1,46 @@
+# Makefile for  dursum_3B42RT6_AMZ.c
+#
+
+EXEDIR=/firecast/BIN/
+CFLAGS = -g -ansi -pedantic
+SRCGCTP=/firecast/lib/gctpc/source/
+LIBGCTP=/firecast/lib/gctpc/source/
+ 
+exe: dursum_3B42RT6_AMZ
+
+saber:
+	#load $(SOURCE) \
+		$(OPTS) \
+		$(OBJLIB) \
+		$(TRLIB) -lm \
+	#link
+
+OPTS = $(CFLAGS)     \
+	-I$(SRCGCTP)
+
+CINCFIL = \
+	$(SRCGCTP)/cproj.h   \
+	$(SRCGCTP)/proj.h
+
+CC = gcc
+
+
+OBJLIB = \
+	$(LIBGCTP)geolib.a
+
+OBJS = 	\
+	include/allocate_binary.o\
+	include/read_binary.o\
+	include/write_binary.o\
+	include/byteswap_3B42RT.o\
+       		  dursum_3B42RT6_AMZ.o
+
+dursum_3B42RT6_AMZ: ${OBJS} $(OBJLIB) $(CINCFIL)
+	${CC} ${OPTS} -o $@ ${OBJS} -lm $(OBJLIB)
+	mv $@ $(EXEDIR)
+
+
+
+clean:
+	/bin/rm -f ${EXEC} dursum_3B42RT6_AMZ.o
+
