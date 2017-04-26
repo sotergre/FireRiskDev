@@ -1,0 +1,18 @@
+# Makefile for days_since_last_rain_AMZEX.c
+#
+
+EXEDIR=/firecast/BIN/
+CC = gcc
+CFLAGS = -g -ansi -pedantic
+OBJS = 	include/allocate_binary.o\
+	include/read_binary.o\
+	include/write_binary.o\
+       		  days_since_last_rain_AMZEX.o
+
+days_since_last_rain_AMZEX: ${OBJS} 
+	${CC} ${CFLAGS} -o $@ ${OBJS} -lm
+	mv $@ $(EXEDIR)
+
+
+clean:
+	/bin/rm -f ${EXEC} days_since_last_rain_AMZEX.o

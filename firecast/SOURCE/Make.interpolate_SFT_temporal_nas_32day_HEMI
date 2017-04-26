@@ -1,0 +1,18 @@
+#
+# Makefile for interpolate_SFT_temporal_nas_32day_HEMI.c 
+#
+
+EXEDIR=/firecast/BIN/
+CC = gcc
+CFLAGS = -g -ansi -pedantic
+OBJS = include/allocate_binary.o\
+       include/read_binary.o\
+       include/write_binary.o\
+       interpolate_SFT_temporal_nas_32day_HEMI.o
+
+interpolate_SFT_temporal_nas_32day_HEMI: ${OBJS}
+	${CC} ${CFLAGS} -o $@ ${OBJS} -lm
+	mv $@ $(EXEDIR)
+
+clean:
+	/bin/rm -f ${EXEC} interpolate_SFT_temporal_nas_32day_HEMI.o

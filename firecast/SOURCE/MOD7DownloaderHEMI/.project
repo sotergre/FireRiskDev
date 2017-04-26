@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>MOD7Downloader</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>org/conservation/ci/cabs/firerisk/data/MOD7Data.java</name>
+			<type>1</type>
+			<location>/Volumes/MacOSXJ/Conservation.ORG/firecast2015/MOD7Data.java</location>
+		</link>
+	</linkedResources>
+</projectDescription>
