@@ -723,7 +723,7 @@ echo "Enter Process"
 		echo "gdal starts here"
 		#convert binary to geotiff
 	
-		gdal_translate -strict -overwrite -ot Int16 -of GTiff -a_srs "+proj=sinu +lon_0=0.0 +x_0=0 +y_0=0 +datum=WGS84 +ellps=WGS84" FIRERISK_${year}$(printf "%.3d" $jday)_${pass}_HEMI.bin FIRERISK_${year}$(printf "%.3d" $jday)_${pass}_HEMI_temp.tif
+		gdal_translate -strict -ot Int16 -of GTiff -a_srs "+proj=sinu +lon_0=0.0 +x_0=0 +y_0=0 +datum=WGS84 +ellps=WGS84" FIRERISK_${year}$(printf "%.3d" $jday)_${pass}_HEMI.bin FIRERISK_${year}$(printf "%.3d" $jday)_${pass}_HEMI_temp.tif
 	
 		gdalwarp -s_srs "+proj=sinu +lon_0=0.0 +x_0=0 +y_0=0 +datum=WGS84 +ellps=WGS84" -t_srs EPSG:3857 -of GTiff -overwrite FIRERISK_${year}$(printf "%.3d" $jday)_${pass}_HEMI_temp.tif ${year}$(printf "%.3d" $jday)_HEMI_FireRisk.tif
 
@@ -755,10 +755,10 @@ echo "Enter Process"
             		
             if [[ $jday == 1 ]]
             then
-                gdal_translate -strict -overwrite -ot Byte -of EHdr "${outputdirectory}DSLR/${prevyear}/DSLR_${prevyear}365_HEMI.bin" "${outputdirectory}DSLR/${prevyear}/DSLR_${prevyear}365_HEMI_Last.bin"
+                gdal_translate -strict -ot Byte -of EHdr "${outputdirectory}DSLR/${prevyear}/DSLR_${prevyear}365_HEMI.bin" "${outputdirectory}DSLR/${prevyear}/DSLR_${prevyear}365_HEMI_Last.bin"
 
             else
-                gdal_translate -strict -overwrite -ot Byte -of EHdr "${outputdirectory}DSLR/${year}/DSLR_${year}$(printf "%.3d" $(( $jday-1 )))_HEMI.bin" "${outputdirectory}DSLR/${year}/DSLR_${year}$(printf "%.3d" $(( $jday-1 )))_HEMI_Last.bin"
+                gdal_translate -strict -ot Byte -of EHdr "${outputdirectory}DSLR/${year}/DSLR_${year}$(printf "%.3d" $(( $jday-1 )))_HEMI.bin" "${outputdirectory}DSLR/${year}/DSLR_${year}$(printf "%.3d" $(( $jday-1 )))_HEMI_Last.bin"
             fi
             
             cd /firecast/DATA/HEMI/MODOUT/DSLR/${year}/
@@ -770,7 +770,7 @@ echo "Enter Process"
                 ${home_dir}/days_since_last_rain_AMZEX DSLR_${year}$(printf "%.3d" $(( $jday-1 )))_HEMI_Last.bin /firecast/DATA/HEMI/IMERG/$year/daysum/ppt_IMERG30m_early_${year}$(printf "%.3d" $jday)_sum_HEMI.bin DSLR_${year}$(printf "%.3d" $jday)_HEMI.bin 5 ${nrows} ${ncols}
             fi
             cp /$DATA_PATH/HEMI/gtifheader/UNSIGNED8.hdr ${outputdirectory}DSLR/${year}/DSLR_${year}$(printf "%.3d" $jday)_HEMI.hdr
-            gdal_translate -a_srs EPSG:4326 -ot Byte -of GTiff -stats -strict -overwrite DSLR_${year}$(printf "%.3d" $jday)_HEMI.bin DSLR_${year}$(printf "%.3d" $(( $jday )))_HEMI_Temp.tif
+            gdal_translate -a_srs EPSG:4326 -ot Byte -of GTiff -stats -strict DSLR_${year}$(printf "%.3d" $jday)_HEMI.bin DSLR_${year}$(printf "%.3d" $(( $jday )))_HEMI_Temp.tif
             gdalwarp  -s_srs EPSG:4326 -t_srs EPSG:3857 -ot Byte -of GTiff -overwrite DSLR_${year}$(printf "%.3d" $jday)_HEMI_Temp.tif DSLR_${year}$(printf "%.3d" $jday)_HEMI.tif
             rm DSLR_${year}$(printf "%.3d" $jday)_HEMI_Temp.tif
             #rm "DSLR_${year}$(printf "%.3d" $(( $jday - 1 )))_HEMI_Last.*"

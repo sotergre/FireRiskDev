@@ -39,7 +39,7 @@ fi
 #enterdatabase flag 
 #0=Model will run and produce outputs but will not push them to the s3
 #1=Two files will be sent to the s3 at the end of each day processed. FR_Index and DSLR
-export set enterdatabase=0
+export set enterdatabase=1
 
 #### AWS Credentials ####
 export set AWS_ACCESS_KEY_ID="AKIAJHZDBGZJXSJTDHCA"
@@ -89,7 +89,7 @@ then
     do
     
         jdayOutCheck=$(gdate -d "yesterday +$(( 0 - i ))days" +%-j)
-    #   jdayOutCheck=$( date -v-1d -v-${i}d +%-j )
+
         if [ ! -f "${DATA_PATH}/HEMI/MODOUT/FR_INDEX/${year}/${year}$(printf "%.3d" $jdayOutCheck)_HEMI_FireRisk.tif" ]
         then
             echo "i=$i"
@@ -107,7 +107,7 @@ else
     do
     
         jdayOutCheck=$(date -d "yesterday +$(( 0 - i ))days" +%-j)
-    #   jdayOutCheck=$( date -v-1d -v-${i}d +%-j )
+
         if [ ! -f "${DATA_PATH}/HEMI/MODOUT/FR_INDEX/${year}/${year}$(printf "%.3d" $jdayOutCheck)_HEMI_FireRisk.tif" ]
         then
             echo "i=$i"
@@ -145,38 +145,30 @@ then
         ### prevyear is the year of the previous julian day.                                  ###
         ### which is the same as $year unless beginjday is 001.                               ###
         export set prevyear=$( gdate -d "$year-01-01 +$(( $jday - 2 ))days" +%Y)
-#         export set prevyear=$( date -v+$(( $jday - 2 ))d -ujf"%Y-%m-%d" "${year}-01-01" +%Y)
     
         export set jday=$jday
         export set prevjday=$( gdate -d "$year-01-01 +$(( $jday - 2 ))days" +%-j)
-#         export set prevjday=$( date -v+$(( $jday - 2 ))d -ujf"%Y-%m-%d" "${year}-01-01" +%-j)
         #####  convert jday to YYYY-MM-DD  #####
         export set fulldate=$( gdate -d "$year-01-01 +$(( $jday - 1 ))days" +%Y-%m-%d )
-#         export set fulldate=$( date -v+$(( $jday - 1 ))d -ujf"%Y-%m-%d" "${year}-01-01" +%Y-%m-%d )
     
         printf "\n***** HEMI Fire Risk for $fulldate *****\n\n"
     
         #####  Download MOD07 and IMERG data for jday  #####
         cd $HOME/BIN
-#         java -jar MOD7DownloaderHEMI.jar $DATA_PATH/HEMI/MOD07L2/${year}/MOD07_L2.A${year}$(printf "%.3d" $jday)hemi.txt ${fulldate}
-#         java -jar MOD7Downloader.jar $DATA_PATH/IDN/MOD07L2/${year}/MOD07_L2.A${year}$(printf "%.3d" $jday)idn.txt indonesia ${fulldate}
+        java -jar MOD7DownloaderHEMI.jar $DATA_PATH/HEMI/MOD07L2/${year}/MOD07_L2.A${year}$(printf "%.3d" $jday)hemi.txt ${fulldate}
         
-#         $SCRIPTS_PATH/get_MOD07_HEMI.sh $year $(printf "%.3d" $jday)
-#         $SCRIPTS_PATH/get_MOD07_IDN.sh $year $(printf "%.3d" $jday)
-#         rm $DATA_PATH/HEMI/MOD07L2/${year}/MOD07_L2.A${year}$(printf "%.3d" $jday)hemi.txt
-#         rm $DATA_PATH/IDN/MOD07L2/${year}/MOD07_L2.A${year}$(printf "%.3d" $jday)idn.txt
+        $SCRIPTS_PATH/get_MOD07_HEMI.sh $year $(printf "%.3d" $jday)
+        rm $DATA_PATH/HEMI/MOD07L2/${year}/MOD07_L2.A${year}$(printf "%.3d" $jday)hemi.txt
         cd $HOME
         $SCRIPTS_PATH/get_IMERG_HDF5.sh
     
         #####  Subset IMERG HDF5 and calculate durations/sums  #####
         $SCRIPTS_PATH/HEMI_IMERG_manual_GrADs.sh 
-        $SCRIPTS_PATH/IDN_IMERG_manual_GrADs.sh
     
         cd $HOME
         #####  Run fire risk models  #####
         $SCRIPTS_PATH/HEMI_MOD07_IMERG_FIRECAST_manual_nas_gdal_win2_plevels_lm.sh
-        $SCRIPTS_PATH/IDN_MOD07_IMERG_FIRECAST_manual_nas_gdal_win2_plevels_lm.sh
-        tput bel
+#         tput bel
     done
 
 else
@@ -186,19 +178,16 @@ else
         ### prevyear is the year of the previous julian day.                                  ###
         ### which is the same as $year unless beginjday is 001.                               ###
         export set prevyear=$( date -d "$year-01-01 +$(( $jday - 2 ))days" +%Y)
-    #   export set prevyear=$( date -v+$(( $jday - 2 ))d -ujf"%Y-%m-%d" "${year}-01-01" +%Y)
-    
         export set jday=$jday
         export set prevjday=$( date -d "$year-01-01 +$(( $jday - 2 ))days" +%-j)
-    #   export set prevjday=$( date -v+$(( $jday - 2 ))d -ujf"%Y-%m-%d" "${year}-01-01" +%-j)
+        
         #####  convert jday to YYYY-MM-DD  #####
         export set fulldate=$( date -d "$year-01-01 +$(( $jday - 1 ))days" +%Y-%m-%d )
-    #   export set fulldate=$( date -v+$(( $jday - 1 ))d -ujf"%Y-%m-%d" "${year}-01-01" +%Y-%m-%d )
     
         printf "\n***** HEMI Fire Risk for $fulldate *****\n\n"
-    
-        #####  Download MOD07 and IMERG data for jday  #####
+        
         cd $HOME/BIN
+        #####  Download MOD07 and IMERG data for jday  #####
         java -jar MOD7DownloaderHEMI.jar $DATA_PATH/HEMI/MOD07L2/${year}/MOD07_L2.A${year}$(printf "%.3d" $jday)hemi.txt ${fulldate}
         $SCRIPTS_PATH/get_MOD07_HEMI.sh $year $(printf "%.3d" $jday)
         rm $DATA_PATH/HEMI/MOD07L2/${year}/MOD07_L2.A${year}$(printf "%.3d" $jday)hemi.txt
@@ -213,7 +202,7 @@ else
         #####  Run fire risk models  #####
         $SCRIPTS_PATH/HEMI_MOD07_IMERG_FIRECAST_manual_nas_gdal_win2_plevels_lm.sh
 
-        tput bel
+#         tput bel
     done
 cat /proc/cpuinfo
 cat /proc/meminfo
@@ -258,7 +247,7 @@ fi
 cat ${HOME}/AlertHeader.txt ${HOME}/Success > AlertEmail.txt
 ssmtp sotergre@msu.edu < AlertEmail.txt
 
-tput bel
-tput bel
+# tput bel
+# tput bel
 
 exit 0

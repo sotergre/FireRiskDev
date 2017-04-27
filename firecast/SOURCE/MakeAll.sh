@@ -64,4 +64,30 @@ make -f Make.sum_3B42RT_GMT
 
 rm *.o
 
+javac -d "/firecast/SOURCE/MOD7DownloaderHEMI" -cp "/firecast/SOURCE/MOD7DownloaderHEMI" /firecast/SOURCE/MOD7Data.java 
+    
+jar -cvfm "/firecast/SOURCE/MOD7DownloaderHEMI.jar" "/firecast/SOURCE/MOD7DownloaderHEMI/META-INF/MANIFEST.MF" -C "/firecast/SOURCE/MOD7DownloaderHEMI/" .
+
+mv /firecast/SOURCE/MOD7DownloaderHEMI.jar /firecast/BIN/MOD7DownloaderHEMI.jar
+
 exit 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
