@@ -42,8 +42,8 @@ fi
 export set enterdatabase=1
 
 #### AWS Credentials ####
-export set AWS_ACCESS_KEY_ID="AKIAJHZDBGZJXSJTDHCA"
-export set AWS_SECRET_ACCESS_KEY="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"
+export set AWS_ACCESS_KEY_ID="AKIAJ6JBGSMHCGN5PZBA"
+export set AWS_SECRET_ACCESS_KEY="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"
 export set AWS_DEFAULT_REGION="us-east-1"
 export set AWS_DEFAULT_PROFILE="default"
 export set AWS_CONFIG_FILE="/firecast/.aws/config"
@@ -81,8 +81,8 @@ fi
 
 ### Starting with the nth day prior to today, check to make sure there are output files   ###
 ### When a file is not found, set that day as the first day to process                    ###
-# Set to 32 to make sure all 32 previous files are there for temporal interpolation
-export set n=32
+# Set to 33 to make sure all 33 previous files are there for temporal interpolation
+export set n=33
 if [ "$arc"="i386" ]
 then
     for (( i=$((n)); i>0; i-- ))
@@ -96,9 +96,15 @@ then
             echo "jdayOutCheck:$jdayOutCheck"
             i=-9999;
             echo "File Not Found: ${year}$(printf "%.3d" $jdayOutCheck)_HEMI_FireRisk.tif"
+            echo ""
         
         else
             echo "Found ${year}$(printf "%.3d" $jdayOutCheck)_HEMI_FireRisk.tif";
+            if [ "$i" -eq "$n" ]
+            then
+                export set rem=$(gdate -d "yesterday +$(( 0 - (i+1) ))days" +%-j)
+                echo "$rem"
+            fi
         fi
     done
 else
@@ -117,6 +123,11 @@ else
         
         else
             echo "Found ${year}$(printf "%.3d" $jdayOutCheck)_HEMI_FireRisk.tif";
+            if [ "$i" -eq 32 ]
+            then
+                export set rem=$(date -d "yesterday +$(( 0 - (i+1) ))days" +%-j)
+                echo "$rem"
+            fi
         fi
     done
 fi
@@ -132,7 +143,7 @@ else
 fi
 
 ### Manual Override ###
-# export set beginjday=110
+#export set beginjday=173
 env
 #### Main Loop ####
 ### Loops through previous days starting at day with missing data but no more than $n days ###
@@ -158,7 +169,9 @@ then
         java -jar MOD7DownloaderHEMI.jar $DATA_PATH/HEMI/MOD07L2/${year}/MOD07_L2.A${year}$(printf "%.3d" $jday)hemi.txt ${fulldate}
         
         $SCRIPTS_PATH/get_MOD07_HEMI.sh $year $(printf "%.3d" $jday)
-        rm $DATA_PATH/HEMI/MOD07L2/${year}/MOD07_L2.A${year}$(printf "%.3d" $jday)hemi.txt
+        $SCRIPTS_PATH/rem_MOD07_HEMI.sh $year $(printf "%.3d" $rem)
+
+        #rm $DATA_PATH/HEMI/MOD07L2/${year}/MOD07_L2.A${year}$(printf "%.3d" $jday)hemi.txt
         cd $HOME
         $SCRIPTS_PATH/get_IMERG_HDF5.sh
     
@@ -190,7 +203,7 @@ else
         #####  Download MOD07 and IMERG data for jday  #####
         java -jar MOD7DownloaderHEMI.jar $DATA_PATH/HEMI/MOD07L2/${year}/MOD07_L2.A${year}$(printf "%.3d" $jday)hemi.txt ${fulldate}
         $SCRIPTS_PATH/get_MOD07_HEMI.sh $year $(printf "%.3d" $jday)
-        rm $DATA_PATH/HEMI/MOD07L2/${year}/MOD07_L2.A${year}$(printf "%.3d" $jday)hemi.txt
+        #rm $DATA_PATH/HEMI/MOD07L2/${year}/MOD07_L2.A${year}$(printf "%.3d" $jday)hemi.txt
         cd $HOME
         source $SCRIPTS_PATH/get_IMERG_HDF5.sh
     

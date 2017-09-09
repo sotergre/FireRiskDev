@@ -1,10 +1,10 @@
 #!/bin/bash
-export set ver="V04A"
+export set ver="V04B"
 
 printf "\nHEMI:\nMoving into $DATA_PATH/GLOBAL/IMERG/$year/LATE/half_hourly\n"
 cd "$DATA_PATH/GLOBAL/IMERG/$year/LATE/half_hourly"
 export set arc=`arch`
-if [ "$arc"="i386" ]
+if [ "$arc" = "i386" ]
 then
     export set mo=`gdate -d "$year-01-01 +$(( $jday - 1 ))days" +%m`
     export set DOM=`gdate -d "$year-01-01 +$(( $jday - 1 ))days" +%d`
