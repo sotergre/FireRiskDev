@@ -2,7 +2,7 @@
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <math.h>
-#include <sys/malloc.h>
+#include <malloc.h>
 #include <sys/uio.h>
 #include <unistd.h>
 #include <stdlib.h>
