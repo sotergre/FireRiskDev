@@ -42,8 +42,8 @@ fi
 export set enterdatabase=1
 
 #### AWS Credentials ####
-export set AWS_ACCESS_KEY_ID="AKIAJ6JBGSMHCGN5PZBA"
-export set AWS_SECRET_ACCESS_KEY="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"
+export set AWS_ACCESS_KEY_ID="***INSERT KEY BEFORE RUNNING***"
+export set AWS_SECRET_ACCESS_KEY="***INSERT KEY BEFORE RUNNING***"
 export set AWS_DEFAULT_REGION="us-east-1"
 export set AWS_DEFAULT_PROFILE="default"
 export set AWS_CONFIG_FILE="/firecast/.aws/config"
