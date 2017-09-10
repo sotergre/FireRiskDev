@@ -26,7 +26,7 @@
 
 export set arc=`arch`
 ####track mem use
-if [ "$arc"="i386" ]
+if [ "$arc" = "i386" ]
 then
     top -l 2 -o cpu -n 0
     
@@ -54,7 +54,7 @@ export set HOME="/firecast"
 
 ### !!!Caution!!! Edit only if you have manually altered the directory structure          ###
 
-if [ "$arc"="i386" ]
+if [ "$arc" = "i386" ]
 then
     export set PATH="$HOME/BIN:/usr/local/bin:/usr/local/sbin:/opt/local/bin:/opt/local/sbin:$PATH"
 else
@@ -67,7 +67,7 @@ export set GASCRP="$HOME/lib/gscript"
 ### !!!End Caution!!!                                                                     ###
 
 #### Date Variables for gnu date (gdate) ####
-if [ "$arc"="i386" ]
+if [ "$arc" = "i386" ]
 then
     export set year=$( gdate -d yesterday +%Y )
     export set yr=$( gdate -d yesterday +%y )
@@ -83,7 +83,7 @@ fi
 ### When a file is not found, set that day as the first day to process                    ###
 # Set to 33 to make sure all 33 previous files are there for temporal interpolation
 export set n=33
-if [ "$arc"="i386" ]
+if [ "$arc" = "i386" ]
 then
     for (( i=$((n)); i>0; i-- ))
     do
@@ -149,7 +149,7 @@ env
 ### Loops through previous days starting at day with missing data but no more than $n days ###
 ### Most recent day processed is yesterday(UTC) e.g.:                                     ###
 ### If server time(UTC) is Oct 10 23:59:59, then model will process through Oct 9         ###
-if [ "$arc"="i386" ]
+if [ "$arc" = "i386" ]
 then
     for (( jday = $beginjday; jday <= $endjday; jday++ ))
     do
