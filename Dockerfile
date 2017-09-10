@@ -18,7 +18,7 @@ RUN apt-get update && apt-get install -y \
  
 RUN git clone https://github.com/sotergre/FireRiskDev.git /firecast && cd /firecast && git checkout Expanded_Window
 RUN export set HOME="/firecast" && cd /firecast && tar -xf DATA.tar.bz
-RUN cd /firecast/lib && unzip HDFLOOK_LINUX_INTEL64 && unzip gctpc && unzip gscript && cd /firecast/lib/gctpc/source && make
+RUN export set HOME="/firecast" && cd /firecast/lib && unzip HDFLOOK_LINUX_INTEL64 && unzip gctpc && unzip gscript && cd /firecast/lib/gctpc/source && make
 ADD ./lib/netcdf-3.6.2.zip /firecast/lib/
-RUN cd /firecast/SOURCE/ && ./MakeAll.sh && chmod 777 ../BIN/MOD7DownloaderHEMI.jar
-
+RUN export set HOME="/firecast" && cd /firecast/SOURCE/ && ./MakeAll.sh && chmod 777 ../BIN/MOD7DownloaderHEMI.jar
+RUN ls /firecast/lib/
