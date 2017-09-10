@@ -61,6 +61,10 @@ make -f Make.rhumid_st_dpt_nas_plevels
 make -f Make.rhumid_st_dpt_nas_plevels_idn
 make -f Make.sum_3B42PP_GLOBAL_V7
 make -f Make.sum_3B42RT_GMT
+make -f Make.rhumid_st_dpt_nas_plevels_HEMI
+make -f Make.interpolate_SFT_temporal_nas_32day_HEMI
+make -f Make.interpolate_RH_temporal_nas_32day_HEMI
+make -f Make.fmodel_100hr_1000hr_nas_v2_IMERG_HEMI
 
 rm *.o
 
