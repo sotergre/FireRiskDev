@@ -2,7 +2,7 @@
 # Makefile for rescale_dslr_nas.c 
 #
 
-EXEDIR=${HOME}/FIRERISK/BIN/
+EXEDIR=/firecast/BIN/
 CC = gcc
 CFLAGS = -g -ansi -pedantic
 OBJS = include/allocate_binary.o\
