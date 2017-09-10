@@ -15,7 +15,8 @@ RUN apt-get update && apt-get install -y \
  ssmtp \
  make \
  default-jdk \
- wget
+ wget \
+ libxft2
  
 RUN git clone https://github.com/sotergre/FireRiskDev.git /firecast && cd /firecast && git checkout Expanded_Window
 RUN export set HOME="/firecast" && cd /firecast && tar -xf DATA.tar.bz
