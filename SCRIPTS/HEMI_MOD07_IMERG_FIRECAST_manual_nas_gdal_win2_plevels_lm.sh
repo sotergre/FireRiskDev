@@ -66,7 +66,7 @@ echo "DATA_PATH:$DATA_PATH"
 
 
 
-if [ "$arc"="i386" ]
+if [ "$arc" = "i386" ]
 then
     
     export set HDFbinDIR="/opt/local/bin"
