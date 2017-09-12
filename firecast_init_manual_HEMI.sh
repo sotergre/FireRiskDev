@@ -42,13 +42,8 @@ fi
 export set enterdatabase=1
 
 #### AWS Credentials ####
-<<<<<<< HEAD
-export set AWS_ACCESS_KEY_ID="AKIAJHZDBGZJXSJTDHCA"
-export set AWS_SECRET_ACCESS_KEY="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"
-=======
-export set AWS_ACCESS_KEY_ID="***INSERT KEY BEFORE RUNNING***"
-export set AWS_SECRET_ACCESS_KEY="***INSERT KEY BEFORE RUNNING***"
->>>>>>> ff290c8... Update firecast_init_manual_HEMI.sh
+#export set AWS_ACCESS_KEY_ID="***INSERT KEY BEFORE RUNNING***"
+#export set AWS_SECRET_ACCESS_KEY="***INSERT KEY BEFORE RUNNING***"
 export set AWS_DEFAULT_REGION="us-east-1"
 export set AWS_DEFAULT_PROFILE="default"
 export set AWS_CONFIG_FILE="/firecast/.aws/config"
@@ -198,7 +193,7 @@ else
         $SCRIPTS_PATH/rem_MOD07_HEMI.sh $year $(printf "%.3d" $jday)
 #         rm $DATA_PATH/HEMI/MOD07L2/${year}/MOD07_L2.A${year}$(printf "%.3d" $jday)hemi.txt
         cd $HOME
-        source $SCRIPTS_PATH/get_IMERG_HDF5.sh
+        $SCRIPTS_PATH/get_IMERG_HDF5.sh
     
         #####  Subset IMERG HDF5 and calculate durations/sums  #####
         $SCRIPTS_PATH/HEMI_IMERG_manual_GrADs.sh 
