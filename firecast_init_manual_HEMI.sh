@@ -190,7 +190,7 @@ else
         #####  Download MOD07 and IMERG data for jday  #####
         java -jar MOD7DownloaderHEMI.jar $DATA_PATH/HEMI/MOD07L2/${year}/MOD07_L2.A${year}$(printf "%.3d" $jday)hemi.txt ${fulldate}
         $SCRIPTS_PATH/get_MOD07_HEMI.sh $year $(printf "%.3d" $jday)
-        $SCRIPTS_PATH/rem_MOD07_HEMI.sh $year $(printf "%.3d" $jday)
+        $SCRIPTS_PATH/rem_MOD07_HEMI.sh $year $(printf "%.3d" $(( $jday - 31 )))
 #         rm $DATA_PATH/HEMI/MOD07L2/${year}/MOD07_L2.A${year}$(printf "%.3d" $jday)hemi.txt
         cd $HOME
         $SCRIPTS_PATH/get_IMERG_HDF5.sh
