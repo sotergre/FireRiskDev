@@ -42,8 +42,13 @@ fi
 export set enterdatabase=1
 
 #### AWS Credentials ####
+<<<<<<< HEAD
 export set AWS_ACCESS_KEY_ID="AKIAJHZDBGZJXSJTDHCA"
 export set AWS_SECRET_ACCESS_KEY="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"
+=======
+export set AWS_ACCESS_KEY_ID="***INSERT KEY BEFORE RUNNING***"
+export set AWS_SECRET_ACCESS_KEY="***INSERT KEY BEFORE RUNNING***"
+>>>>>>> ff290c8... Update firecast_init_manual_HEMI.sh
 export set AWS_DEFAULT_REGION="us-east-1"
 export set AWS_DEFAULT_PROFILE="default"
 export set AWS_CONFIG_FILE="/firecast/.aws/config"
