@@ -24,4 +24,5 @@ RUN export set HOME="/firecast" && cd /firecast && tar -xf DATA.tar.bz
 RUN export set HOME="/firecast" && cd /firecast/lib && unzip HDFLOOK_LINUX_INTEL64 && unzip gctpc && unzip gscript && cd /firecast/lib/gctpc/source && make
 ADD ./lib/netcdf-3.6.2.zip /firecast/lib/
 RUN export set HOME="/firecast" && cd /firecast/SOURCE/ && ./MakeAll.sh && chmod 777 ../BIN/MOD7DownloaderHEMI.jar
-COPY ~/.aws ~/.aws
+COPY ${HOME}/.aws/** ${HOME}/.aws/
+CMD /bin/bash -c
