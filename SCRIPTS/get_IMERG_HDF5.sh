@@ -4,7 +4,7 @@
 #This may not be the case for next versions. So read the PPS changelog when notified of version update.
 export set ver="V04A"
 export set arc=`arch`
-if [ "$arc"="i386" ]
+if [ "$arc" = "i386" ]
 then
     ### BSD date command ###
     export set prevmonth=$( gdate -d "$year-01-01 +$(( $jday - 2 ))days" +%m)
