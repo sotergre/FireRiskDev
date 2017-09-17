@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#IMERG3 data tables and output grid remained unchanged for V04A. So all that we needed to change was the filename.
+#IMERG3 data tables and output grid remained unchanged for V04B. So all that we needed to change was the filename.
 #This may not be the case for next versions. So read the PPS changelog when notified of version update.
 export set ver="V04B"
 export set arc=`arch`

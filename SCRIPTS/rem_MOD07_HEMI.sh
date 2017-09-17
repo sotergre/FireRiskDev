@@ -13,8 +13,8 @@
 # MOD07_L2.*hemi.txt is a text file with a list of MODIS files to download for that day
 #   
 year=$1
-rem=$2
-# let "rem = $rem"
+remNum=$2
+
 echo "HEMI:Removing MOD07_L2.A${year}${rem}"
 cd /firecast/DATA/HEMI/MOD07L2/${year}/
 
@@ -24,7 +24,7 @@ cd /firecast/DATA/HEMI/MOD07L2/${year}/
 #     FTP
 # done < MOD07_L2.A${year}${jday}hemi.txt
 
-while [ -f "MOD07_L2.A${year}${rem}hemi.txt" ]
+while [ -f "MOD07_L2.A${year}${remNum}hemi.txt" ]
 do
 while read file 
 do
@@ -33,8 +33,8 @@ rm ${file} << FTP
 FTP
 done < MOD07_L2.A${year}${rem}hemi.txt
 
-rm MOD07_L2.A${year}${rem}hemi.txt
-let "rem -= 1"
+rm MOD07_L2.A${year}${remNum}hemi.txt
+remNum = $(( remNum - 1 ))
 done
 
 exit 0

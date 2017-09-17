@@ -69,7 +69,7 @@ echo "DATA_PATH:$DATA_PATH"
 if [ "$arc" = "i386" ]
 then
     
-    export set HDFbinDIR="/opt/local/bin"
+    export set HDFbinDIR="/usr/local/bin"
 else
     export set HDFbinDIR="$HOME/lib/LINUX_INTEL64"
 fi
@@ -776,14 +776,46 @@ echo "Enter Process"
             #rm "DSLR_${year}$(printf "%.3d" $(( $jday - 1 )))_HEMI_Last.*"
             cd $HOME   
 
-			### add to data base ###
+            ### clip to Africa, Indonesia, Madagascar, and South America regions ###
+            echo "clipping ${outputdirectory}FR_INDEX/${year}/${year}$(printf "%.3d" $jday)_HEMI_FireRisk.tif"
+            gdal_translate -of GTiff -ot Float32 -projwin 10518662.077 823024.622 15975457.232 -1231054.162 -co COMPRESS=DEFLATE -co PREDICTOR=1 -co ZLEVEL=6 "${outputdirectory}FR_INDEX/${year}/${year}$(printf "%.3d" $jday)_HEMI_FireRisk.tif" "${outputdirectory}FR_INDEX/${year}/${year}$(printf "%.3d" $jday)_IDN_FireRisk.tif"
+            gdal_translate -of GTiff -ot Float32 -projwin -9234184.99987 1351756.81678 -3873137.4587 -2980402.81245 -co COMPRESS=DEFLATE -co PREDICTOR=1 -co ZLEVEL=6 "${outputdirectory}FR_INDEX/${year}/${year}$(printf "%.3d" $jday)_HEMI_FireRisk.tif" "${outputdirectory}FR_INDEX/${year}/${year}$(printf "%.3d" $jday)_SA_FireRisk.tif"
+            gdal_translate -of GTiff -ot Float32 -projwin -2031969.61627 1351756.81678 5982525.6978 -2980402.81245 -co COMPRESS=DEFLATE -co PREDICTOR=1 -co ZLEVEL=6 "${outputdirectory}FR_INDEX/${year}/${year}$(printf "%.3d" $jday)_HEMI_FireRisk.tif" "${outputdirectory}FR_INDEX/${year}/${year}$(printf "%.3d" $jday)_AF_FireRisk.tif"
+            gdal_translate -of GTiff -ot Float32 -projwin 5114831.58259 -1348229.0995 5899750.50489 -3092493.3712 -co COMPRESS=DEFLATE -co PREDICTOR=1 -co ZLEVEL=6 "${outputdirectory}FR_INDEX/${year}/${year}$(printf "%.3d" $jday)_HEMI_FireRisk.tif" "${outputdirectory}FR_INDEX/${year}/${year}$(printf "%.3d" $jday)_MDG_FireRisk.tif" 
+            echo "clipping ${outputdirectory}DSLR/${year}/DSLR_${year}$(printf "%.3d" $jday)_HEMI.tif"
+            gdal_translate -of GTiff -ot Float32 -projwin 10411478.3573 903452.583545 16019503.6202 -1218004.34158 -co COMPRESS=DEFLATE -co PREDICTOR=1 -co ZLEVEL=6 "${outputdirectory}DSLR/${year}/DSLR_${year}$(printf "%.3d" $jday)_HEMI.tif" "${outputdirectory}DSLR/${year}/DSLR_${year}$(printf "%.3d" $jday)_IDN.tif"
+            gdal_translate -of GTiff -ot Float32 -projwin -9234184.99987 1351756.81678 -3873137.4587 -2980402.81245 -co COMPRESS=DEFLATE -co PREDICTOR=1 -co ZLEVEL=6 "${outputdirectory}DSLR/${year}/DSLR_${year}$(printf "%.3d" $jday)_HEMI.tif" "${outputdirectory}DSLR/${year}/DSLR_${year}$(printf "%.3d" $jday)_SA.tif"
+            gdal_translate -of GTiff -ot Float32 -projwin -2031969.61627 1351756.81678 5982525.6978 -2980402.81245 -co COMPRESS=DEFLATE -co PREDICTOR=1 -co ZLEVEL=6 "${outputdirectory}DSLR/${year}/DSLR_${year}$(printf "%.3d" $jday)_HEMI.tif" "${outputdirectory}DSLR/${year}/DSLR_${year}$(printf "%.3d" $jday)_AF.tif"
+            gdal_translate -of GTiff -ot Float32 -projwin 5114831.58259 -1348229.0995 5899750.50489 -3092493.3712 -co COMPRESS=DEFLATE -co PREDICTOR=1 -co ZLEVEL=6 "${outputdirectory}DSLR/${year}/DSLR_${year}$(printf "%.3d" $jday)_HEMI.tif" "${outputdirectory}DSLR/${year}/DSLR_${year}$(printf "%.3d" $jday)_MDG.tif" 
+			### add to database ###
 			if [ "$enterdatabase" -eq 1 ]
 			then
 				#enter tiff into s3 database
-				aws s3 cp "${outputdirectory}FR_INDEX/${year}/${year}$(printf "%.3d" $jday)_HEMI_FireRisk.tif" "s3://suitability-mapper/fire-risk/HEMI/"
-				aws s3 cp "${outputdirectory}DSLR/${year}/DSLR_${year}$(printf "%.3d" $jday)_HEMI.tif" "s3://suitability-mapper/fire-risk/HEMI/DSLR/"
+				aws s3 cp "${outputdirectory}FR_INDEX/${year}/${year}$(printf "%.3d" $jday)_HEMI_FireRisk.tif" "s3://gfw2-data/fires/fire-risk/TROPICS/TROPICS/Risk/"
+				aws s3 cp "${outputdirectory}FR_INDEX/${year}/${year}$(printf "%.3d" $jday)_IDN_FireRisk.tif" "s3://gfw2-data/fires/fire-risk/TROPICS/IDN/Risk/"
+				aws s3 cp "${outputdirectory}FR_INDEX/${year}/${year}$(printf "%.3d" $jday)_SA_FireRisk.tif" "s3://gfw2-data/fires/fire-risk/TROPICS/SA/Risk/"
+				aws s3 cp "${outputdirectory}FR_INDEX/${year}/${year}$(printf "%.3d" $jday)_AF_FireRisk.tif" "s3://gfw2-data/fires/fire-risk/TROPICS/AF/Risk/"
+				aws s3 cp "${outputdirectory}FR_INDEX/${year}/${year}$(printf "%.3d" $jday)_MDG_FireRisk.tif" "s3://gfw2-data/fires/fire-risk/TROPICS/MDG/Risk/"
+				aws s3 cp "${outputdirectory}DSLR/${year}/DSLR_${year}$(printf "%.3d" $jday)_HEMI.tif" "s3://gfw2-data/fires/fire-risk/TROPICS/TROPICS/DSLR/"
+				aws s3 cp "${outputdirectory}DSLR/${year}/DSLR_${year}$(printf "%.3d" $jday)_IDN.tif" "s3://gfw2-data/fires/fire-risk/TROPICS/IDN/DSLR/"
+				aws s3 cp "${outputdirectory}DSLR/${year}/DSLR_${year}$(printf "%.3d" $jday)_SA.tif" "s3://gfw2-data/fires/fire-risk/TROPICS/SA/DSLR/"
+				aws s3 cp "${outputdirectory}DSLR/${year}/DSLR_${year}$(printf "%.3d" $jday)_AF.tif" "s3://gfw2-data/fires/fire-risk/TROPICS/AF/DSLR/"
+				aws s3 cp "${outputdirectory}DSLR/${year}/DSLR_${year}$(printf "%.3d" $jday)_MDG.tif" "s3://gfw2-data/fires/fire-risk/TROPICS/MDG/DSLR/"
 			    echo ""
-			fi
+			else
+			    #dryrun entering tiff into s3 database
+				aws s3 cp "${outputdirectory}FR_INDEX/${year}/${year}$(printf "%.3d" $jday)_HEMI_FireRisk.tif" "s3://gfw2-data/fires/fire-risk/TROPICS/TROPICS/Risk/" --dryrun
+				aws s3 cp "${outputdirectory}FR_INDEX/${year}/${year}$(printf "%.3d" $jday)_IDN_FireRisk.tif" "s3://gfw2-data/fires/fire-risk/TROPICS/IDN/Risk/" --dryrun
+				aws s3 cp "${outputdirectory}FR_INDEX/${year}/${year}$(printf "%.3d" $jday)_SA_FireRisk.tif" "s3://gfw2-data/fires/fire-risk/TROPICS/SA/Risk/" --dryrun
+				aws s3 cp "${outputdirectory}FR_INDEX/${year}/${year}$(printf "%.3d" $jday)_AF_FireRisk.tif" "s3://gfw2-data/fires/fire-risk/TROPICS/AF/Risk/" --dryrun
+				aws s3 cp "${outputdirectory}FR_INDEX/${year}/${year}$(printf "%.3d" $jday)_MDG_FireRisk.tif" "s3://gfw2-data/fires/fire-risk/TROPICS/MDG/Risk/" --dryrun
+				aws s3 cp "${outputdirectory}DSLR/${year}/DSLR_${year}$(printf "%.3d" $jday)_HEMI.tif" "s3://gfw2-data/fires/fire-risk/TROPICS/TROPICS/DSLR/" --dryrun
+				aws s3 cp "${outputdirectory}DSLR/${year}/DSLR_${year}$(printf "%.3d" $jday)_IDN.tif" "s3://gfw2-data/fires/fire-risk/TROPICS/IDN/DSLR/" --dryrun
+				aws s3 cp "${outputdirectory}DSLR/${year}/DSLR_${year}$(printf "%.3d" $jday)_SA.tif" "s3://gfw2-data/fires/fire-risk/TROPICS/SA/DSLR/" --dryrun
+				aws s3 cp "${outputdirectory}DSLR/${year}/DSLR_${year}$(printf "%.3d" $jday)_AF.tif" "s3://gfw2-data/fires/fire-risk/TROPICS/AF/DSLR/" --dryrun
+				aws s3 cp "${outputdirectory}DSLR/${year}/DSLR_${year}$(printf "%.3d" $jday)_MDG.tif" "s3://gfw2-data/fires/fire-risk/TROPICS/MDG/DSLR/" --dryrun
+			    echo ""
+			fi #end if database loop
 	fi #end if moisture loop
 
 	cd $HOME
