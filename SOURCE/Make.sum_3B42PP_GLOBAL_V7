@@ -1,7 +1,7 @@
 # Makefile for  sum_3B42PP_GLOBAL_V7.c
 #
 
-EXEDIR=/Users/firecast/FireCastAMZrepo/BIN/
+EXEDIR=${HOME}/BIN/
 CC = gcc
 CFLAGS = -g -ansi -pedantic
 OBJS = include/allocate_binary.o\

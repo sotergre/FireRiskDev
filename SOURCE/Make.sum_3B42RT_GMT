@@ -3,11 +3,12 @@
 #
 
 
-EXEDIR=/firecast/BIN/
+EXEDIR=${HOME}/BIN/
 CC = gcc
 CFLAGS = -g -ansi -pedantic
 OBJS = include/allocate_binary.o\
        include/read_binary_fmodel.o\
+       include/read_binary.o\
        include/write_binary.o\
 	include/byteswap_3B42RT.o\
        	sum_3B42RT_GMT.o

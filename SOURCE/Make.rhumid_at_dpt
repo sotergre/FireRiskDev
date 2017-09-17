@@ -2,7 +2,7 @@
 # Makefile for rhumid_at_dpt.c 
 #
 
-EXEDIR=/FIRECAST/BIN/
+EXEDIR=${HOME}/BIN/
 CC = gcc
 CFLAGS = -g -ansi -pedantic
 OBJS = include/allocate_binary.o\
