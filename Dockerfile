@@ -27,6 +27,7 @@ WORKDIR /firecast/lib
 RUN unzip HDFLOOK_LINUX_INTEL64 && unzip gctpc && unzip gscript && cd /firecast/lib/gctpc/source && make
 WORKDIR /firecast/SOURCE
 RUN ./MakeAll.sh && chmod 777 ../BIN/MOD7DownloaderHEMI.jar
-ENV AWS_DEFAULT_PROFILE="$AWS_DEFAULT_PROFILE" AWS_SECRET_ACCESS_KEY="$AWS_SECRET_ACCESS_KEY" AWS_ACCESS_KEY_ID="$AWS_ACCESS_KEY_ID" AWS_DEFAULT_PROFILE="default" AWS_DEFAULT_REGION="us-east-1"
+ENV AWS_SECRET_ACCESS_KEY="$AWS_SECRET_ACCESS_KEY" AWS_ACCESS_KEY_ID="$AWS_ACCESS_KEY_ID" AWS_DEFAULT_PROFILE="default" AWS_DEFAULT_REGION="us-east-1"
 WORKDIR /firecast
+
 CMD ./firecast_init_manual_HEMI.sh
