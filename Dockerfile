@@ -27,7 +27,37 @@ WORKDIR /firecast/lib
 RUN unzip HDFLOOK_LINUX_INTEL64 && unzip gctpc && unzip gscript && cd /firecast/lib/gctpc/source && make
 WORKDIR /firecast/SOURCE
 RUN ./MakeAll.sh && chmod 777 ../BIN/MOD7DownloaderHEMI.jar
-ENV AWS_SECRET_ACCESS_KEY="$AWS_SECRET_ACCESS_KEY" AWS_ACCESS_KEY_ID="$AWS_ACCESS_KEY_ID" AWS_DEFAULT_PROFILE="default" AWS_DEFAULT_REGION="us-east-1"
-WORKDIR /firecast
 
+ARG awsdir
+ARG SECRET_ACCESS_KEY
+ARG ACCESS_KEY_ID
+
+ENV AWS_SECRET_ACCESS_KEY="$SECRET_ACCESS_KEY" \
+    AWS_ACCESS_KEY_ID="$ACCESS_KEY_ID" \
+    AWS_DEFAULT_PROFILE="default" \
+    AWS_DEFAULT_REGION="us-east-1" \
+    AWS_CONFIG_FILE="/firecast/.aws/config"
+COPY $awsdir/* /firecast/
+
+WORKDIR /firecast
+RUN mkdir /firecast/.aws && \
+    echo "[default]" > /firecast/.aws/config && \
+    echo "[default]" > /firecast/.aws/credentials && \
+    echo 'aws_access_key_id = "$ACCESS_KEY_ID"' >> /firecast/.aws/credentials && \
+    echo 'aws_secret_access_key = "$SECRET_ACCESS_KEY"' >> /firecast/.aws/credentials && \
+    echo 'output = table' >> /firecast/.aws/config && \
+    echo 'region = us-east-1' >> /firecast/.aws/config && \
+    aws configure list
 CMD ./firecast_init_manual_HEMI.sh
+
+
+
+
+
+
+
+
+
+
+
+
