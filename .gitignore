@@ -1,3 +1,4 @@
 AlertEmail.txt
 *.log
 ./BIN/*
+.aws
